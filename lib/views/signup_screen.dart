@@ -7,14 +7,14 @@ import 'package:mvvm/utils/routes/utils.dart';
 import 'package:mvvm/view_model/auth_view_model.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: height * 0.25,
             ),
             const Text(
-              'Login',
+              'Create an account',
               style: TextStyle(
                 fontSize: 30,
               ),
@@ -106,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: height * 0.25),
             RoundButton(
-              title: 'Login',
+              title: 'Sign Up',
               loading: authViewModel.loading,
               onPress: () {
                 if (_emailController.text.isEmpty) {
@@ -117,30 +117,30 @@ class _LoginScreenState extends State<LoginScreen> {
                   Utils.flushBarErrorMessage(
                       'Pasword must be 8 characters long', context);
                 } else {
-                  Map loginData = {
+                  Map registerData = {
                     'email': _emailController.text.toString(),
                     'password': _passwordController.text.toString(),
                   };
-                  print("API hit");
-                  authViewModel.loginApi(loginData, context);
-                  Utils.flushBarErrorMessage('Login Sucessfully', context);
-                  Navigator.of(context).pushNamed('home_screen');
+                  print("REgister API hit");
+                  authViewModel.registerApi(registerData, context);
+                  Utils.flushBarErrorMessage('Registered Sucessfully', context);
+                  Navigator.of(context).pushNamed('login_screen');
                 }
               },
             ),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text(
-                'Don\'t have an acoount? ',
+                'Already have an acoount? ',
                 style: TextStyle(
                   fontSize: height * 0.018,
                 ),
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed('signup_screen');
+                  Navigator.of(context).pushNamed('login_screen');
                 },
                 child: Text(
-                  'SignUp',
+                  'Login',
                   style: TextStyle(
                     color: AppColors.buttonColor,
                     fontSize: height * 0.018,

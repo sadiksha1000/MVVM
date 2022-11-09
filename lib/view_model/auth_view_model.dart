@@ -24,4 +24,12 @@ class AuthViewModel with ChangeNotifier {
       Utils.flushBarErrorMessage(error.toString(), context);
     });
   }
+
+  Future<void> registerApi(dynamic data, BuildContext context) async {
+    setLoading(true);
+    _myRepo.registerApi(data).then((value) {
+      setLoading(false);
+      print("Value at then ${value.toString()}");
+    }).onError((error, stackTrace) => setLoading(false));
+  }
 }
